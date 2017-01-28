@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Funtech - How do we feel about different companies?</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <style>
+        .sentiment-0 {
+            background: red;
+        }
+        
+        .sentiment-2 {
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <form class="navbar-form inline pull-right">
+                <a href="https://github.com/Lixire/funtech" class="btn btn-default" title="Source code">Source code</a>
+                <div class="input-group">
+                    <span class="input-group-btn"><button type="button" class="btn btn-default" title="Get Permalink"><span class="glyphicon glyphicon-search"></span></button></span>
+                    <input type="text" class="form-control">
+                </div>
+            </form>
+            <h1>How do we feel about different companies?</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Most Positive Companies</h2>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr><th>Company name</th><th>Sentiment</th></tr>
+                    </thead>
+                    <tbody>
+                    {% for company, sentiment in trending_companies %}
+                        <tr class="sentiment-{{ sentiment | round }}"><td>{{ company }}</td><td>{{ sentiment }}</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2>Most Negative Companies</h2>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr><th>Company name</th><th>Sentiment</th></tr>
+                    </thead>
+                    <tbody>
+                    {% for company, sentiment in trending_companies_negative %}
+                        <tr class="sentiment-{{ sentiment | round }}"><td>{{ company }}</td><td>{{ sentiment }}</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $("table").dataTable();
+    </script>
+</body>
+</html>
