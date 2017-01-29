@@ -30,7 +30,7 @@ def get_top_sentiment_companies(conn):
         (company, (sentiment - min_sentiment) / (max_sentiment - min_sentiment))
         for company, sentiment in company_scores.items()
     ]
-    return sorted(company_scores, key=lambda e: -e[1]) * 100
+    return sorted(company_scores, key=lambda e: -e[1])
 
 @app.route("/")
 def index():
