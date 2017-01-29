@@ -50,7 +50,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
     <script type="text/javascript">
         var companyTable = $('#positive-companies').DataTable({
-            pageLength: 50,
+            pageLength: 10,
             order: [[1, "desc"]],
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 var score = parseFloat(aData[1]);
