@@ -2,3 +2,4 @@
 pip install tweepy
 pip install flask
 pip install textblob
+pip install yahoo_finance
