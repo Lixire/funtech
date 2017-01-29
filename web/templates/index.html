@@ -53,7 +53,7 @@
                         <tr><th>Company name</th><th>Sentiment</th></tr>
                     </thead>
                     <tbody>
-                    {% for company, sentiment in trending_companies_negative %}
+                    {% for company, sentiment in trending_companies | reverse %}
                         <tr class="sentiment-{{ sentiment | round }}"><td>{{ company }}</td><td>{{ sentiment }}</td></tr>
                     {% endfor %}
                     </tbody>
@@ -66,7 +66,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
-        $("table").dataTable();
+        $("table").each(function(i, element) {
+            $(element).DataTable({
+                pageLength: 50,
+                fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    var score = parseFloat(aData[1]);
+                    var green = score * 200;
+                    var red = 200 - 200 * score;
+                    $('td', nRow).css('background-color', '#' + ('0' + red.toString(16)).slice(-2) + ('0' + green.toString(16)).slice(-2) + '00').css('color', 'white');
+                }
+            });
+        });
     </script>
 </body>
 </html>
