@@ -41,5 +41,5 @@ def index():
     )
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8888) # debug mode
-    #app.run(debug=False, host="0.0.0.0", port=80) # release mode - publicly visible
+    #app.run(debug=True, port=8888) # debug mode
+    app.run(debug=False, host="0.0.0.0", port=80) # release mode - publicly visible
