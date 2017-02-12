@@ -22,27 +22,26 @@ buffer = {}
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         global current
-        stmt = TextBlob(status.text)
-        sent = stmt.sentiment.polarity
-        company = ""
-        for i in range(len(companies)):
-            if companies[i] in status.text:
-                company = companies[i]
+        for company in companies:
+            if company in status.text:
+                stmt = TextBlob(status.text)
+                sent = stmt.sentiment.polarity
                 if(company in buffer):
-                    tmp = buffer[company]
-                    tmp[1] = (tmp[0]*tmp[1] + sent)/(tmp[0]+1)
-                    tmp[0] +=1
-                    buffer[company] = tmp
+                    count, average_sent = buffer[company]
+                    count += 1
+                    average_sent = (count*average_sent + sent)/(count+1)
+                    buffer[company] = (count, average_sent)
                 else:
-                    buffer[company] = [1,sent]
+                    buffer[company] = (1, sent)
                 break
-        if(company!= "" and buffer[company][0] >= 40):
-            dat = str(date.today())
-            conn.execute("insert into sentiments values (?, ?, ?)", (dat, company, buffer[company][1]))
-            print(status.text)
-            buffer[company] = [0,0]
+        else:
+            return
+        print(status.text)
         if(abs(current - time.time()) > 40):
+            for company, (count, average_sent) in buffer.items():
+                conn.execute("insert into sentiments values (?, ?, ?)", (str(date.today()), company, average_sent))
             conn.commit()
+            buffer = {}
             current = time.time()
         
     def on_error(self, status_code):
