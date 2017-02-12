@@ -49,7 +49,7 @@ def chartymcchartface(name):
         if(companies[i] == name):
             closeweekly = []
             c = Share(codes[i])
-            week = c.get_historical('2017-01-10', '2017-01-27')
+            week = c.get_historical(str(date.today() - timedelta(days=14)), str(date.today()))
             for line in week:
                 closeweekly.append({'x':line['Date'],'y':float(line['Close'])})
             break
