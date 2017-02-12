@@ -25,7 +25,7 @@ class MyStreamListener(tweepy.StreamListener):
         company_name = ""
         for company in companies:
             if company in status.text:
-                company_name = ""
+                company_name = company
                 stmt = TextBlob(status.text)
                 sent = stmt.sentiment.polarity
                 if(company in buffer):
