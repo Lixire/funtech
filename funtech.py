@@ -22,8 +22,10 @@ class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         global current
         global buffer
+        company_name = ""
         for company in companies:
             if company in status.text:
+                company_name = ""
                 stmt = TextBlob(status.text)
                 sent = stmt.sentiment.polarity
                 if(company in buffer):
@@ -34,7 +36,7 @@ class MyStreamListener(tweepy.StreamListener):
                 else:
                     buffer[company] = (1, sent)
                 break
-        else:
+        if company_name == "":
             return
         print(status.text)
         if(abs(current - time.time()) > 40):
