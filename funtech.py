@@ -16,12 +16,12 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
 current = time.time()
-
 buffer = {}
 
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         global current
+        global buffer
         for company in companies:
             if company in status.text:
                 stmt = TextBlob(status.text)
