@@ -1,4 +1,4 @@
-#Sentigrade
+# Sentigrade
 By: Amy Qiu (amylyn.qiu@gmail.com), Anthony Zhang (azhang9@gmail.com)
 
 ## Inspiration
